@@ -196,8 +196,10 @@ public class InstallAppMojoSupport extends PluginConfigSupport {
                 File manifestFile = MavenProjectUtil.getManifestFile(dependProject, "maven-jar-plugin");
                 looseApp.addManifestFileWithParent(archive, manifestFile);
             } else {
-                resolveArtifact(artifact);
-                looseApp.getConfig().addFile(parent, artifact.getFile(), dir + artifact.getFile().getName());
+            	String warFolderName = project.getBuild().getFinalName();
+            	resolveArtifact(artifact);
+                File f = new File(project.getBuild().getDirectory() + "/" + warFolderName + "/" + dir + "/" + artifact.getFile().getName());
+                looseApp.getConfig().addFile(parent, f, dir + artifact.getFile().getName());
             }
         }
     }
